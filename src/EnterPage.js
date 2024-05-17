@@ -5,7 +5,6 @@ import './EnterPage.css';
 function EnterPage() {
   return (
     <div className="enter-page">
-      <MainPage />
       <div className="additional-content">
         <h1>Welcome to Our Service!</h1>
         <p>Explore our services and see how we can enhance your daily commutes and travels. Whether you need to plan a trip, book a ride, or get traffic updates, we have everything you need!</p>
