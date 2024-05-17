@@ -2,9 +2,9 @@
 
 ## Available Scripts
 
-### npm install
+### `npm install`
 
-### npm install @react-google-maps/api
+### `npm install @react-google-maps/api`
 
 In the project directory, you can run:
 
