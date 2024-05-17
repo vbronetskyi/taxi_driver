@@ -1,0 +1,78 @@
+.profile-page {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.profile-photo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-photo img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-info input, .profile-actions button, .profile-photo input[type="file"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.profile-info input:focus {
+  border-color: #007bff;
+}
+
+.save-changes-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn, .delete-account-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  margin-top: 20px;
+}
+
+.delete-account-btn {
+  background-color: #dc3545;
+  margin-bottom: 10px;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-actions button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
