@@ -8,60 +8,72 @@ function ProfilePage() {
     email: '',
     languages: [],
     rating: 0,
-    photo: '',
+    photo: 'image.jpeg',
   });
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
-    const username = localStorage.getItem('currentUser'); // Змініть згідно з вашою логікою аутентифікації
-    const storedUserData = JSON.parse(localStorage.getItem(username));
-    if (storedUserData) {
-      setUserData(storedUserData);
+    const email = localStorage.getItem('currentUser');
+    const isLoggedInStatus = localStorage.getItem('isLoggedIn');
+    if (!email || !isLoggedInStatus) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+      const userCredentials = localStorage.getItem(email);
+      if (userCredentials) {
+        const data = JSON.parse(userCredentials);
+        setUserData(data);
+      }
     }
   }, []);
 
+  if (!isLoggedIn) {
+    return (
+      <div className="login-required">
+        <p>You must be logged in to view this page.</p>
+        <a href="/login">Log in</a>
+      </div>
+    );
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "languages") {
-      setUserData(prevUserData => ({
-        ...prevUserData,
-        [name]: Array.from(e.target.selectedOptions, option => option.value),
-      }));
-    } else {
-      setUserData(prevUserData => ({
-        ...prevUserData,
-        [name]: value,
-      }));
-    }
+    setUserData(prev => ({
+      ...prev,
+      [name]: name === "languages" ? [...e.target.options].filter(option => option.selected).map(option => option.value) : value
+    }));
   };
 
   const handleSaveChanges = () => {
-    const username = localStorage.getItem('currentUser');
-    localStorage.setItem(username, JSON.stringify(userData));
+    const email = localStorage.getItem('currentUser');
+    localStorage.setItem(email, JSON.stringify(userData));
     alert('Profile updated successfully.');
   };
 
   const handleDeleteAccount = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
-    if (confirmDelete) {
-      const username = localStorage.getItem('currentUser');
-      localStorage.removeItem(username);
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      const email = localStorage.getItem('currentUser');
+      localStorage.removeItem(email);
+      localStorage.removeItem('currentUser');
       localStorage.removeItem('isLoggedIn');
-      window.location.href = '/login'; // Redirect to login after account deletion
+      window.location.href = '/login';
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
-    window.location.href = '/login'; // Redirect to login
+    localStorage.removeItem('currentUser');
+    window.location.href = '/login';
   };
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setUserData(prevUserData => ({
-        ...prevUserData,
-        photo: reader.result,
+    reader.onload = () => {
+      setUserData(prev => ({
+        ...prev,
+        photo: reader.result
       }));
     };
     reader.readAsDataURL(file);
@@ -71,7 +83,7 @@ function ProfilePage() {
     <div className="profile-page">
       <h2>User Profile</h2>
       <div className="profile-photo">
-        {userData.photo ? <img src={userData.photo} alt="Profile" /> : <p>No photo uploaded</p>}
+        <img src={userData.photo || 'image.jpeg'} alt="Profile" />
         <input type="file" onChange={handlePhotoChange} />
       </div>
       <div className="profile-info">
@@ -82,11 +94,18 @@ function ProfilePage() {
           <option value="English">English</option>
           <option value="Spanish">Spanish</option>
           <option value="Mandarin">Mandarin</option>
-          {/* Додайте інші мови за потребою */}
+          <option value="French">French</option>
+          <option value="German">German</option>
+          <option value="Arabic">Arabic</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Bengali">Bengali</option>
+          <option value="Portuguese">Portuguese</option>
+          <option value="Ukrainian">Ukrainian</option>
         </select>
-        <button className="save-changes-btn" onClick={handleSaveChanges}>Save Changes</button>
+
       </div>
       <div className="profile-actions">
+        <button className="save-changes-btn" onClick={handleSaveChanges}>Save Changes</button>
         <button className="delete-account-btn" onClick={handleDeleteAccount}>Delete Account</button>
         <button className="logout-btn" onClick={handleLogout}>Log out</button>
       </div>

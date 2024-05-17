@@ -32,11 +32,11 @@ function MainPage() {
       </header>
 
       <section className="image-carousel">
-        {/* Image carousel component goes here */}
+        {}
       </section>
 
       <footer className="main-footer">
-        {/* Footer content goes here */}
+        {}
       </footer>
     </div>
   );

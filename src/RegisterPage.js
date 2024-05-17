@@ -39,19 +39,26 @@ function RegisterPage() {
     if (password.length < 8) {
       setMessage("Password must contain at least 8 characters.");
       setMessageType('error');
+      return false; 
+    }
+
+    if (localStorage.getItem(email)) {
+      setMessage("An account with this email already exists.");
+      setMessageType('error');
       return false;
     }
 
-    return true; // All validations passed
+    return true;
   };
 
   const handleRegister = () => {
     if (validateForm()) {
       const userData = { username, email, password, fullName, phoneNumber, languages };
-      localStorage.setItem(username, JSON.stringify(userData));
-      localStorage.setItem('isLoggedIn', 'true'); // Automatically log the user in after registration
-      window.location.href = '/';
-      setMessage("Registration successful. You can now log in.");
+      localStorage.setItem(email, JSON.stringify(userData));
+      localStorage.setItem('currentUser', email);
+      localStorage.setItem('isLoggedIn', 'true');
+      window.location.href = '/profile';
+      setMessage("Registration successful. You are now logged in.");
       setMessageType('success');
     }
   };

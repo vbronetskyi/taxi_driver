@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    const userDataString = localStorage.getItem(username);
-    if (!userDataString) {
+    if (email === 'admin' && password === 'admin') {
+      navigate('/admin');
+      return;
+    }
+
+    const userCredentials = localStorage.getItem(email);
+    if (!userCredentials) {
       setMessage("User not found. Please register.");
       setMessageType('error');
       return;
     }
 
-    const userData = JSON.parse(userDataString);
+    const userData = JSON.parse(userCredentials);
     if (userData.password === password) {
-      localStorage.setItem('isLoggedIn', 'true'); // Mark the user as logged in
-      window.location.href = '/'; // Redirect to the home page or another appropriate page
+      localStorage.setItem('currentUser', email);
+      localStorage.setItem('isLoggedIn', 'true'); //flag that mark user logged in
+      window.location.href = '/profile';
     } else {
       setMessage("Incorrect password.");
       setMessageType('error');
@@ -31,10 +39,10 @@ function LoginPage() {
       {message && <div className={`message ${messageType}`}>{message}</div>}
       <div className="input-container">
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"

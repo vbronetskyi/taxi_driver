@@ -1,3 +1,39 @@
+.login-required {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  z-index: 1000;
+  text-align: center;
+  width: 300px;
+  border-radius: 8px;
+}
+
+.login-required p {
+  margin: 15px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.login-required a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: white;
+  background-color: #007BFF;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.login-required a:hover {
+  background-color: #0056b3;
+}
+
 .profile-page {
   max-width: 800px;
   margin: 20px auto;
@@ -26,7 +62,7 @@
   gap: 10px;
 }
 
-.profile-info input, .profile-actions button, .profile-photo input[type="file"] {
+.profile-info input, .profile-photo input[type="file"] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -39,9 +75,11 @@
 
 .save-changes-btn {
   background-color: #28a745;
+  width: 40%;
   color: white;
   border: none;
   cursor: pointer;
+  margin: auto; 
 }
 
 .logout-btn, .delete-account-btn {
@@ -49,28 +87,30 @@
   color: white;
   border: none;
   cursor: pointer;
+  margin:auto;
 }
 
 .logout-btn {
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .delete-account-btn {
   background-color: #dc3545;
-  margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .profile-actions {
   display: flex;
+  padding-top: 10px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
 .profile-actions button {
-  width: 100%;
-  padding: 10px;
+  width: 40%;
   font-size: 16px;
+  text-align: center;
 }
 
 input[type="file"] {
